@@ -9,351 +9,64 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #faf9f7;
-      --surface: #ffffff;
-      --border: #e8e5e0;
-      --text-primary: #1a1917;
-      --text-secondary: #5a5854;
-      --text-muted: #9a9690;
-      --accent: #2c2c2a;
+      --bg: #faf9f7; --surface: #ffffff; --border: #e8e5e0;
+      --text-primary: #1a1917; --text-secondary: #5a5854; --text-muted: #9a9690;
     }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      min-height: 100vh;
-    }
-
-    .site {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem 3rem;
-    }
-
-    /* ── Header ── */
-    .header {
-      border-bottom: 0.5px solid var(--border);
-      padding-bottom: 2.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.6rem;
-    }
-
-    h1 {
-      font-family: 'Lora', serif;
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      font-weight: 400;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-    }
-
-    h1 em {
-      font-style: italic;
-      color: var(--text-secondary);
-    }
-
-    .tagline {
-      margin-top: 0.85rem;
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      max-width: 500px;
-    }
-
-    /* ── Audio Player ── */
-    .player-card {
-      margin-top: 1.75rem;
-      background: var(--surface);
-      border: 0.5px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-    }
-
-    .player-now-playing {
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .player-title {
-      font-family: 'Lora', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text-primary);
-      margin-bottom: 1rem;
-    }
-
-    .player-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-play {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 0.5px solid var(--border);
-      background: var(--text-primary);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: opacity 0.15s;
-    }
-
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
+    .site { max-width: 700px; margin: 0 auto; padding: 4rem 1.5rem 3rem; }
+    .header { border-bottom: 0.5px solid var(--border); padding-bottom: 2.5rem; margin-bottom: 2.5rem; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
+    h1 { font-family: 'Lora', serif; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
+    h1 em { font-style: italic; color: var(--text-secondary); }
+    .hosts-inline { font-size: 0.85rem; font-weight: 400; color: var(--text-muted); margin-top: 0.4rem; letter-spacing: 0.02em; }
+    .tagline { margin-top: 0.85rem; font-size: 0.95rem; font-weight: 300; color: var(--text-secondary); line-height: 1.65; max-width: 500px; }
+    .player-card { margin-top: 1.75rem; background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+    .player-now-playing { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .player-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 400; color: var(--text-primary); margin-bottom: 1rem; }
+    .player-controls { display: flex; align-items: center; gap: 12px; }
+    .btn-play { width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--text-primary); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: opacity 0.15s; }
     .btn-play:hover { opacity: 0.8; }
-
-    .btn-play svg {
-      width: 14px;
-      height: 14px;
-      fill: #fff;
-      margin-left: 2px;
-    }
-
-    .btn-play.playing svg { margin-left: 0; }
-
-    .progress-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .progress-bar {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 3px;
-      border-radius: 2px;
-      background: var(--border);
-      outline: none;
-      cursor: pointer;
-    }
-
-    .progress-bar::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--text-primary);
-      cursor: pointer;
-    }
-
-    .progress-bar::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--text-primary);
-      border: none;
-      cursor: pointer;
-    }
-
-    .time-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* ── Episode List ── */
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .episode {
-      display: flex;
-      gap: 1rem;
-      padding: 1.25rem 0;
-      border-bottom: 0.5px solid var(--border);
-      align-items: flex-start;
-      cursor: pointer;
-      transition: background 0.1s;
-    }
-
+    .btn-play svg { width: 14px; height: 14px; fill: #fff; margin-left: 2px; }
+    .progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .progress-bar { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; border-radius: 2px; background: var(--border); outline: none; cursor: pointer; }
+    .progress-bar::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--text-primary); cursor: pointer; }
+    .progress-bar::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--text-primary); border: none; cursor: pointer; }
+    .time-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+    .section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+    .episode { display: flex; gap: 1rem; padding: 1.25rem 0; border-bottom: 0.5px solid var(--border); align-items: flex-start; cursor: pointer; }
     .episode:first-of-type { border-top: 0.5px solid var(--border); }
-
-    .ep-num {
-      font-size: 11px;
-      color: var(--text-muted);
-      min-width: 28px;
-      padding-top: 3px;
-      letter-spacing: 0.05em;
-      flex-shrink: 0;
-    }
-
+    .ep-num { font-size: 11px; color: var(--text-muted); min-width: 28px; padding-top: 3px; letter-spacing: 0.05em; flex-shrink: 0; }
     .ep-body { flex: 1; }
-
-    .ep-title {
-      font-family: 'Lora', serif;
-      font-size: 1.02rem;
-      font-weight: 400;
-      color: var(--text-primary);
-      line-height: 1.35;
-      margin-bottom: 5px;
-      transition: color 0.15s;
-    }
-
+    .ep-title { font-family: 'Lora', serif; font-size: 1.02rem; font-weight: 400; color: var(--text-primary); line-height: 1.35; margin-bottom: 5px; transition: color 0.15s; }
     .episode:hover .ep-title { color: var(--text-secondary); }
-
-    .ep-desc {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      font-weight: 300;
-      line-height: 1.55;
-    }
-
-    .ep-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .ep-date, .ep-dur {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .ep-dot {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--border);
-      flex-shrink: 0;
-    }
-
-    .ep-play {
-      width: 30px;
-      height: 30px;
-      border: 0.5px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    .episode:hover .ep-play {
-      background: var(--text-primary);
-      border-color: var(--text-primary);
-    }
-
-    .ep-play svg {
-      width: 10px;
-      height: 10px;
-      fill: var(--text-muted);
-      margin-left: 1px;
-      transition: fill 0.15s;
-    }
-
-    .episode:hover .ep-play svg { fill: #fff; }
-
+    .ep-desc { font-size: 0.84rem; color: var(--text-secondary); font-weight: 300; line-height: 1.55; }
+    .ep-meta { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .ep-date { font-size: 11px; color: var(--text-muted); }
+    .ep-play { width: 30px; height: 30px; border: 0.5px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: background 0.15s, border-color 0.15s; }
+    .episode:hover .ep-play, .ep-active .ep-play { background: var(--text-primary); border-color: var(--text-primary); }
+    .ep-play svg { width: 10px; height: 10px; fill: var(--text-muted); margin-left: 1px; transition: fill 0.15s; }
+    .episode:hover .ep-play svg, .ep-active .ep-play svg { fill: #fff; }
     .ep-active .ep-title { color: var(--text-secondary); }
-    .ep-active .ep-play { background: var(--text-primary); border-color: var(--text-primary); }
-    .ep-active .ep-play svg { fill: #fff; }
-
-    /* ── Footer ── */
-    .footer {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .footer-copy {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .sub-links {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .sub-links a {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-decoration: none;
-      border-bottom: 0.5px solid var(--border);
-      transition: color 0.15s;
-    }
-
+    .footer { margin-top: 1rem; padding-top: 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    .sub-links { display: flex; gap: 1rem; }
+    .sub-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; border-bottom: 0.5px solid var(--border); transition: color 0.15s; cursor: pointer; }
     .sub-links a:hover { color: var(--text-primary); }
-
-    .hosts-inline {
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── Authors ── */
-    .author-list {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .author-name {
-      font-family: 'Lora', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text-primary);
-    }
-
-    /* ── Impressum ── */
-    .impressum-text {
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: var(--text-secondary);
-      line-height: 1.8;
-    }
-
-    .impressum-text a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .impressum-text a:hover { color: var(--text-primary); }
+    .impressum-panel { display: none; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); }
+    .impressum-panel p { font-size: 0.85rem; font-weight: 300; color: var(--text-secondary); line-height: 1.8; }
+    .impressum-panel a { color: var(--text-secondary); text-decoration: none; border-bottom: 0.5px solid var(--border); }
+    .impressum-panel a:hover { color: var(--text-primary); }
   </style>
 </head>
 <body>
 <div class="site">
 
-  <!-- Header -->
   <header class="header">
     <div class="eyebrow">Podcast</div>
     <h1>Lern<em>spuren</em></h1>
     <p class="hosts-inline">Sandra Steiner &amp; Saskia Braune</p>
     <p class="tagline">Gespräche über Schulentwicklung – Impulse, Erfahrungen und Ideen für alle, die Schule gestalten wollen.</p>
-
-    <!-- Embedded Audio Player -->
     <div class="player-card">
       <div class="player-now-playing">Jetzt läuft</div>
       <div class="player-title" id="player-title">Wähle eine Folge aus</div>
@@ -373,24 +86,14 @@
     </div>
   </header>
 
-  <!-- Episode List -->
   <div class="section-label">Alle Folgen</div>
 
-  <!--
-    HOW TO ADD YOUR OWN EPISODES:
-    1. Upload your .mp3 files to your GitHub repo (e.g. in an /audio/ folder)
-    2. Set data-src to the path of the audio file, e.g. data-src="audio/Folge1.mp3"
-    3. To add more episodes, copy one <div class="episode"> block and paste it below
-  -->
-
-  <div class="episode" data-src="audio/Folge6.mp3" data-title="Tiefenwirkung statt Methodenshow – Was guter Unterricht im sonderpädagogischen Kontext wirklich bedeutet" onclick="loadEpisode(this)">
+  <div class="episode" data-src="audio/Folge6.mp3" data-title="Tiefenwirkung statt Methodenshow" onclick="loadEpisode(this)">
     <span class="ep-num">#06</span>
     <div class="ep-body">
       <div class="ep-title">Tiefenwirkung statt Methodenshow – Was guter Unterricht im sonderpädagogischen Kontext wirklich bedeutet</div>
       <div class="ep-desc">Die Folge beleuchtet, warum die Unterscheidung zwischen Oberflächen- und Tiefenstrukturen des Unterrichts entscheidend ist – und warum gängige Forschungsmodelle im sonderpädagogischen Kontext an ihre Grenzen stoßen.</div>
-      <div class="ep-meta">
-        <span class="ep-date">Folge 6</span>
-      </div>
+      <div class="ep-meta"><span class="ep-date">Folge 6</span></div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
   </div>
@@ -400,21 +103,17 @@
     <div class="ep-body">
       <div class="ep-title">Vom Bauchgefühl zur Evidenz</div>
       <div class="ep-desc">Was tun, wenn das Bauchgefühl sagt, dass eine Fortbildung nicht gut lief – aber die Daten ein ganz anderes Bild zeigen? Sandra erzählt, wie ihr Masterstudium ihren Blick auf Evaluation grundlegend verändert hat.</div>
-      <div class="ep-meta">
-        <span class="ep-date">Folge 5</span>
-      </div>
+      <div class="ep-meta"><span class="ep-date">Folge 5</span></div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
   </div>
 
-  <div class="episode" data-src="audio/Folge4.mp3" data-title="Feedback lesen lernen – Schülerfeedback zwischen Anspruch und sonderpädagogischer Wirklichkeit" onclick="loadEpisode(this)">
+  <div class="episode" data-src="audio/Folge4.mp3" data-title="Feedback lesen lernen" onclick="loadEpisode(this)">
     <span class="ep-num">#04</span>
     <div class="ep-body">
       <div class="ep-title">Feedback lesen lernen – Schülerfeedback zwischen Anspruch und sonderpädagogischer Wirklichkeit</div>
       <div class="ep-desc">Gängige Instrumente zum Schülerfeedback setzen sprachliche Kompetenzen voraus und blenden sonderpädagogische Kontexte aus. Wirksam wird Feedback nur dann, wenn es professionell begleitete Reflexionsprozesse auslöst.</div>
-      <div class="ep-meta">
-        <span class="ep-date">Folge 4</span>
-      </div>
+      <div class="ep-meta"><span class="ep-date">Folge 4</span></div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
   </div>
@@ -424,9 +123,7 @@
     <div class="ep-body">
       <div class="ep-title">Mit meinen Schüler:innen geht das nicht!</div>
       <div class="ep-desc">Ein vertrauter Satz aus dem Lehrerzimmer – und was steckt wirklich dahinter? Ein ehrliches Gespräch über Defizitdenken, Ko-Konstruktion und die Kunst, Räume zu öffnen, statt Meinungen zu ändern.</div>
-      <div class="ep-meta">
-        <span class="ep-date">Folge 3</span>
-      </div>
+      <div class="ep-meta"><span class="ep-date">Folge 3</span></div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
   </div>
@@ -436,64 +133,52 @@
     <div class="ep-body">
       <div class="ep-title">Institutionen kann und soll man verändern, Menschen nicht</div>
       <div class="ep-desc">Hans-Günter Rolff sagt: Institutionen ja, Menschen nicht. Saskia spricht mit Sandra, einer Schulentwicklungsbegleiterin, die gelernt hat, dass echter Wandel nicht entsteht, wenn man einspringt, sondern wenn man loslässt.</div>
-      <div class="ep-meta">
-        <span class="ep-date">Folge 2</span>
-      </div>
+      <div class="ep-meta"><span class="ep-date">Folge 2</span></div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
   </div>
 
-  <div class="episode" data-src="audio/Folge1.mp3" data-title="Versprechen ohne Fundament – Bildungsgerechtigkeit für Kinder mit komplexen Behinderungen" onclick="loadEpisode(this)">
+  <div class="episode" data-src="audio/Folge1.mp3" data-title="Versprechen ohne Fundament" onclick="loadEpisode(this)">
     <span class="ep-num">#01</span>
     <div class="ep-body">
       <div class="ep-title">Versprechen ohne Fundament – Bildungsgerechtigkeit für Kinder mit komplexen Behinderungen</div>
       <div class="ep-desc">Inklusion und Lehrplan 21 schließen Kinder mit schweren kognitiven Beeinträchtigungen strukturell aus. Solange Ressourcen wie Unterstützte Kommunikation vom Engagement Einzelner abhängen, bleibt Bildungsgerechtigkeit eine Glückssache.</div>
-      <div class="ep-meta">
-        <span class="ep-date">Folge 1</span>
-      </div>
+      <div class="ep-meta"><span class="ep-date">Folge 1</span></div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
   </div>
 
-  <!-- Impressum -->
-  <div class="impressum" style="margin-top: 2.5rem;">
-    <div class="section-label">Impressum</div>
-    <p class="impressum-text">
-      Saskia Braune<br>
-      Hauptstrasse 1B<br>
-      4143 Dornach, Schweiz<br>
-      <a href="mailto:saskiabraune@hotmail.com">saskiabraune@hotmail.com</a>
-    </p>
-  </div>
-
-  <!-- Footer -->
   <footer class="footer">
-    <span class="footer-copy">© 2026 Lernspuren</span>
+    <span class="footer-copy">&copy; 2026 Lernspuren</span>
     <div class="sub-links">
-      <a href="feed.xml" target="_blank">RSS</a>
+      <a href="#" id="impressum-toggle">Impressum</a>
     </div>
   </footer>
 
-</div>
+  <div class="impressum-panel" id="impressum-panel">
+    <p>
+      Saskia Braune<br>
+      Hauptstrasse 1B<br>
+      4143 Dornach, Schweiz<br>
+      info [at] lernspuren.com
+    </p>
+  </div>
 
+</div>
 <script>
   const audio = document.getElementById('audio');
-  const btnPlay = document.getElementById('btn-play');
   const playIcon = document.getElementById('play-icon');
   const progress = document.getElementById('progress');
   const timeCurrent = document.getElementById('time-current');
   const timeTotal = document.getElementById('time-total');
   const playerTitle = document.getElementById('player-title');
-
   const PLAY_PATH = "M2 1.5l10 5.5-10 5.5V1.5z";
   const PAUSE_PATH = "M2 1h3.5v12H2V1zm6.5 0H12v12H8.5V1z";
-
   let activeEpisode = null;
 
   function fmt(s) {
     if (isNaN(s)) return '0:00';
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
     return m + ':' + (sec < 10 ? '0' : '') + sec;
   }
 
@@ -501,12 +186,8 @@
     if (activeEpisode) activeEpisode.classList.remove('ep-active');
     activeEpisode = el;
     el.classList.add('ep-active');
-
-    const src = el.dataset.src;
-    const title = el.dataset.title;
-
-    playerTitle.textContent = title;
-    audio.src = src;
+    playerTitle.textContent = el.dataset.title;
+    audio.src = el.dataset.src;
     audio.load();
     audio.play().catch(() => {});
     setIcon(false);
@@ -514,11 +195,7 @@
 
   function togglePlay() {
     if (!audio.src || audio.src === window.location.href) return;
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
+    audio.paused ? audio.play() : audio.pause();
   }
 
   function setIcon(paused) {
@@ -529,10 +206,20 @@
     if (audio.duration) audio.currentTime = val;
   }
 
+
+
   audio.addEventListener('play', () => setIcon(false));
   audio.addEventListener('pause', () => setIcon(true));
+  audio.addEventListener('ended', () => setIcon(true));
+  audio.addEventListener('loadedmetadata', () => {
+    progress.max = audio.duration;
+    timeTotal.textContent = fmt(audio.duration);
+  });
+  audio.addEventListener('timeupdate', () => {
+    progress.value = audio.currentTime;
+    timeCurrent.textContent = fmt(audio.currentTime);
+  });
 
-  // Load Folge 1 as default on page load (no autoplay)
   window.addEventListener('DOMContentLoaded', () => {
     const first = document.querySelector('.episode[data-src="audio/Folge1.mp3"]');
     if (first) {
@@ -542,17 +229,12 @@
       audio.src = first.dataset.src;
       audio.load();
     }
-  });
-  audio.addEventListener('ended', () => setIcon(true));
 
-  audio.addEventListener('loadedmetadata', () => {
-    progress.max = audio.duration;
-    timeTotal.textContent = fmt(audio.duration);
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    progress.value = audio.currentTime;
-    timeCurrent.textContent = fmt(audio.currentTime);
+    document.getElementById('impressum-toggle').addEventListener('click', function(e) {
+      e.preventDefault();
+      const panel = document.getElementById('impressum-panel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    });
   });
 </script>
 </body>
