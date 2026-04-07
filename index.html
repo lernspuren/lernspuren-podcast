@@ -304,6 +304,43 @@
     }
 
     .sub-links a:hover { color: var(--text-primary); }
+
+    .hosts-inline {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Authors ── */
+    .author-list {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .author-name {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    /* ── Impressum ── */
+    .impressum-text {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .impressum-text a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .impressum-text a:hover { color: var(--text-primary); }
   </style>
 </head>
 <body>
@@ -313,6 +350,7 @@
   <header class="header">
     <div class="eyebrow">Podcast</div>
     <h1>Lern<em>spuren</em></h1>
+    <p class="hosts-inline">Sandra Steiner &amp; Saskia Braune</p>
     <p class="tagline">Gespräche über Schulentwicklung – Impulse, Erfahrungen und Ideen für alle, die Schule gestalten wollen.</p>
 
     <!-- Embedded Audio Player -->
@@ -415,6 +453,17 @@
       </div>
     </div>
     <div class="ep-play"><svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4V1z"/></svg></div>
+  </div>
+
+  <!-- Impressum -->
+  <div class="impressum" style="margin-top: 2.5rem;">
+    <div class="section-label">Impressum</div>
+    <p class="impressum-text">
+      Saskia Braune<br>
+      Hauptstrasse 1B<br>
+      4143 Dornach, Schweiz<br>
+      <a href="mailto:saskiabraune@hotmail.com">saskiabraune@hotmail.com</a>
+    </p>
   </div>
 
   <!-- Footer -->
